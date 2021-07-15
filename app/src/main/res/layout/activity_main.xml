@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="64sp"
+                android:textSize="96sp"
                 android:fontFamily="sans-serif-thin"
                 android:text="24°C"
                 android:layout_gravity="center"
@@ -242,7 +242,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:text="5:00am"
+                        android:text="0"
                         android:id="@+id/tvWind">
 
                     </TextView>
@@ -298,7 +298,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:text="5:00am"
+                        android:text="0"
                         android:id="@+id/tvPressure">
 
                     </TextView>
@@ -345,7 +345,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:text="5:00am"
+                        android:text="0"
                         android:id="@+id/tvHumidity">
 
                     </TextView>
@@ -364,12 +364,13 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:background="#3CF1EBF1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:id="@+id/llRefresh">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/info"
+                        android:src="@drawable/refresh"
                         app:tint="#FFF">
 
                     </ImageView>
@@ -384,7 +385,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:text="Created by">
+                        android:text="Refresh">
 
                     </TextView>
 
@@ -392,8 +393,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:text="CodingDojo"
-                        android:id="@+id/tvInfo">
+                        android:text="Data">
 
                     </TextView>
 
@@ -414,14 +414,32 @@
 
     </ProgressBar>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="128sp"
+        android:orientation="vertical"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:text="Something Went Wrong"
-        android:id="@+id/tvError">
+        android:id="@+id/llErrorContainer">
 
-    </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Something Went Wrong">
+
+        </TextView>
+
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/design_default_color_primary"
+            android:text="RETRY"
+            android:id="@+id/btError"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
