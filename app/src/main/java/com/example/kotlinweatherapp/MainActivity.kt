@@ -68,7 +68,11 @@ class MainActivity : AppCompatActivity() {
                 "dd/MM/yyyy hh:mm a",
                 Locale.ENGLISH).format(Date(lastUpdate*1000))
             val currentTemperature = main.getString("temp")
-            val temp = currentTemperature.substring(0, currentTemperature.indexOf(".")) + "°C"
+            val temp = try{
+                currentTemperature.substring(0, currentTemperature.indexOf(".")) + "°C"
+            }catch(e: Exception){
+                currentTemperature + "°C"
+            }
             val minTemperature = main.getString("temp_min")
             val tempMin = "Low: " + minTemperature.substring(0, minTemperature.indexOf("."))+"°C"
             val maxTemperature = main.getString("temp_max")
