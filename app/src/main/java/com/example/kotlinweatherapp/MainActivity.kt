@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -26,6 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var errorButton: Button
 
+    private lateinit var rlZip: RelativeLayout
+    private lateinit var etZip: EditText
+    private lateinit var btZip: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,6 +41,19 @@ class MainActivity : AppCompatActivity() {
         errorButton.setOnClickListener {
             city = "10001"
             requestAPI()
+        }
+
+        rlZip = findViewById(R.id.rlZip)
+        etZip = findViewById(R.id.etZip)
+        btZip = findViewById(R.id.btZip)
+        btZip.setOnClickListener {
+            city = etZip.text.toString();
+            requestAPI()
+            etZip.text.clear()
+            // Hide Keyboard
+            val imm = ContextCompat.getSystemService(this, InputMethodManager::class.java)
+            imm?.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+            rlZip.isVisible = false
         }
 
         requestAPI()
@@ -89,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
             findViewById<TextView>(R.id.tvAddress).text = address
             findViewById<TextView>(R.id.tvAddress).setOnClickListener {
-                customAlert()
+                rlZip.isVisible = true
             }
             findViewById<TextView>(R.id.tvLastUpdated).text =  lastUpdateText
             findViewById<TextView>(R.id.tvStatus).text = weatherDescription.capitalize(Locale.getDefault())
@@ -137,39 +157,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun customAlert(){
-        val dialogBuilder = AlertDialog.Builder(this@MainActivity)
-
-        // Set up the input
-        val input = EditText(this)
-        // Specify the type of input expected
-        input.hint = "Enter Zip"
-        input.inputType = InputType.TYPE_CLASS_NUMBER
-
-        // set message of alert dialog
-        dialogBuilder.setMessage("Enter your Zip code:")
-            // if the dialog is cancelable
-            .setCancelable(false)
-            // positive button text and action
-            .setPositiveButton("Submit", DialogInterface.OnClickListener {
-                    dialog, id ->
-                run { city = input.text.toString(); requestAPI() }
-            })
-            // negative button text and action
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
-            })
-
-        // create dialog box
-        val alert = dialogBuilder.create()
-        // set title for alert dialog box
-        alert.setTitle("Change City")
-        // show alert dialog
-
-        alert.setView(input)
-
-        alert.show()
     }
 }
