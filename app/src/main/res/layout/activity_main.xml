@@ -447,6 +447,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_bg"
+        android:visibility="gone"
         >
 
         <LinearLayout
@@ -462,12 +463,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/etZip"
                 android:inputType="number"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:layout_weight="1"
                 android:hint="Enter your ZIP code"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btZip"
+                android:background="@color/purple_700"
                 android:text="Submit"/>
 
         </LinearLayout>
